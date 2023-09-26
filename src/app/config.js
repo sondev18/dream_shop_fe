@@ -1,4 +1,5 @@
 export const BASE_URL = process.env.REACT_APP_BACKEND_API;
+export const LINK_URL = process.env.REACT_APP_BACKEND_LINK
 export const CLOUDINARY_CLOUD_NAME =
   process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
 export const CLOUDINARY_UPLOAD_PRESET =

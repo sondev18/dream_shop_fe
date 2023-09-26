@@ -21,6 +21,7 @@ import FButton from "../../../componets/form/FButton";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { addToCart } from "../../../features/addCartSlice";
+import { LINK_URL } from "../../../app/config";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -36,7 +37,6 @@ function ProductCard({ product }) {
       dispatch(addToCart({ productId: product._id }, enqueueSnackbar));
     }
   };
-
   return (
     <Card sx={{ width: 280, height: 420, borderRadius: "10px" }}>
       <CardActionArea onClick={() => navigate(`/products/${product._id}`)}>
@@ -47,7 +47,7 @@ function ProductCard({ product }) {
             sx={{ borderRadius: "5px", margin: "auto", width: "75%" }}
             component="img"
             height="190"
-            image={product?.imageUrl[1]}
+            image={`${LINK_URL}${product?.imageUrl[0]}`}
             alt={product?.authorBrand?.brand}
           />
         </Box>

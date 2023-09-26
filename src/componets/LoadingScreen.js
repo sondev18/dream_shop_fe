@@ -7,7 +7,7 @@ function LoadingScreen() {
       style={{
         position: "absolute",
         width: "100%",
-        height: "100%",
+        height: "30%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

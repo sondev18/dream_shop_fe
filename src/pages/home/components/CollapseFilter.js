@@ -23,6 +23,7 @@ import Dell from "../../../img/dell.png";
 import Asus from "../../../img/asus.png";
 import Acer from "../../../img/acer.png";
 import Apple from "../../../img/apple.png";
+import Msi from "../../../img/msi.png"
 import Samsung from "../../../img/samsung.png";
 import Xiaomi from "../../../img/xiaomi.png";
 import Huawei from "../../../img/huawei.png";
@@ -72,6 +73,11 @@ function CollapseFilter({ setBrand, setCategory, brand, setPage }) {
           id: "9f8d210c-5374-42eb-95cf-58d584e37a52",
           value: "apple",
           icon: <img style={{ width: "40px" }} src={Apple} alt="Apple" />,
+        },
+        {
+          id: "9f8d210c-5374-42eb-95cf-58d584e37a52",
+          value: "msi",
+          icon: <img style={{ width: "50px" }} src={Msi} alt="Msi" />,
         },
       ],
     },

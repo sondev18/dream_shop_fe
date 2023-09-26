@@ -82,6 +82,7 @@ function AuthProvider({ children }) {
   }, [updatedProfile]);
 
   const { enqueueSnackbar } = useSnackbar();
+  
   useEffect(() => {
     const initialize = async () => {
       try {

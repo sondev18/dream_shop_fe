@@ -22,6 +22,7 @@ import LoadingScreen from "../componets/LoadingScreen";
 import useAuth from "../hooks/useAuth";
 import { addToCart } from "../features/addCartSlice";
 import { ProductInformation } from "./home/components";
+import { LINK_URL } from "../app/config";
 
 function DetailPages() {
   const [urlImg, setUrlImg] = useState("");
@@ -46,7 +47,7 @@ function DetailPages() {
   };
   useEffect(() => {
     if (productDetail?.imageUrl) {
-      setUrlImg(productDetail?.imageUrl[1]);
+      setUrlImg(`${LINK_URL}${productDetail?.imageUrl[1]}`);
     }
   }, [productDetail]);
   
@@ -188,11 +189,11 @@ function DetailPages() {
                 }}
                 key={index}
                 onClick={() => {
-                  setUrlImg(productDetail?.imageUrl[index]);
+                  setUrlImg(`${LINK_URL}${productDetail?.imageUrl[index]}`);
                 }}
               >
                 <img
-                  src={element}
+                  src={`${LINK_URL}${element}`}
                   alt="productDetail"
                   style={{
                     borderRadius: "10px",
