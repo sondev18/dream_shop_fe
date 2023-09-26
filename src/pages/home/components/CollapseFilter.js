@@ -70,7 +70,7 @@ function CollapseFilter({ setBrand, setCategory, brand, setPage }) {
           icon: <img style={{ width: "40px" }} src={Acer} alt="acer" />,
         },
         {
-          id: "9f8d210c-5374-42eb-95cf-58d584e37a52",
+          id: "76217e08-4268-4140-b282-480f7df3862d",
           value: "apple",
           icon: <img style={{ width: "40px" }} src={Apple} alt="Apple" />,
         },

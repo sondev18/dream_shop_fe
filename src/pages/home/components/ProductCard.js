@@ -62,9 +62,7 @@ function ProductCard({ product }) {
           component="div"
           noWrap
         >
-          {`${capitalCase(product?.authorCatego?.name || "")} ${
-            product?.authorBrand?.brand || ""
-          }`}
+          {`${capitalCase(product?.description?.model || "")}`}
         </Typography>
         <ProductInformation
           sx={{ height: "21px", fontSize: "14px" }}

@@ -47,7 +47,7 @@ function DetailPages() {
   };
   useEffect(() => {
     if (productDetail?.imageUrl) {
-      setUrlImg(`${LINK_URL}${productDetail?.imageUrl[1]}`);
+      setUrlImg(`${LINK_URL}${productDetail?.imageUrl[0]}`);
     }
   }, [productDetail]);
   
