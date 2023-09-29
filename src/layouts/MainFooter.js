@@ -34,6 +34,7 @@ function MainFooter() {
           justifyContent: "space-between",
           marginTop: 15,
           marginBottom: 12,
+          flexWrap:'wrap'
         }}
       >
         <div>

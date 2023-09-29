@@ -88,13 +88,7 @@ export const LIST_OPTIONS_NAV = [
   {
     value: "CustomerCare",
     role: ["normal"],
-    navigateValue: "/customrcare",
-    line: (
-      <Divider
-        orientation="vertical"
-        style={{ height: "30px", margin: "0 10px" }}
-      />
-    ),
+    navigateValue: "/customrcare"
   },
   {
     value: "CreateProduct",

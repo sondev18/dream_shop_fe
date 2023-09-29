@@ -44,7 +44,7 @@ function ProductCard({ product }) {
           <DiscountNew product={product} />
 
           <CardMedia
-            sx={{ borderRadius: "5px", margin: "auto", width: "75%" }}
+            sx={{ borderRadius: "5px", margin: "auto", width: "75%", objectFit:'contain' }}
             component="img"
             height="190"
             image={`${LINK_URL}${product?.imageUrl[0]}`}
