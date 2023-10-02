@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../app/apiService";
+import { getOrder } from "./oderCartSlice";
 
 const initialState = {
   isLoading: false,
@@ -134,6 +135,7 @@ export const ortherConfim =
       });
       if (res.success) {
         dispatch(getOther(enqueueSnackbar));
+        dispatch(getOrder(enqueueSnackbar));
         enqueueSnackbar("Order successfully", { variant: "success" });
       }
     } catch (error) {

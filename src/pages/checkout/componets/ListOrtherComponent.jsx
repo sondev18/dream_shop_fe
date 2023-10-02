@@ -19,6 +19,8 @@ import {
   setQuanlityOrther,
 } from "../../../features/addCartSlice";
 import { useNavigate } from "react-router-dom";
+import { LINK_URL } from "../../../app/config";
+
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -86,7 +88,7 @@ const ListOrtherComponent = React.memo(
             }}
           >
             <Button onClick={() => navigate(`/products/${row?.productId}`)}>
-              <img src={row?.imageUrl[1]} alt="" style={{ height: "80px" }} />
+              <img src={`${LINK_URL}${row?.imageUrl[0]}`} alt="" style={{ height: "80px" }} />
             </Button>
             <Typography
               sx={{

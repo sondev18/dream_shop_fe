@@ -11,6 +11,7 @@ import { deleteOrther } from "../../../features/oderCartSlice";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import EvaluateComfirm from "./EvaluateComfirm";
+import { LINK_URL } from "../../../app/config";
 
 const StyledTableCellBody = styled(TableCell)({
   textAlign: "center",
@@ -46,7 +47,7 @@ const Listorder = React.memo(({ row }) => {
             }}
           >
             <Button onClick={() => navigate(`/products/${row?.productId}`)}>
-              <img src={row?.imageUrl[1]} alt="" style={{ height: "80px" }} />
+              <img src={`${LINK_URL}${row?.imageUrl[0]}`} alt="" style={{ height: "80px" }} />
             </Button>
             <Typography
               sx={{

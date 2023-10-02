@@ -21,6 +21,7 @@ import {
   ortherConfim,
 } from "../../../features/addCartSlice";
 import { useSnackbar } from "notistack";
+import { getOrder } from "../../../features/oderCartSlice";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -56,9 +57,9 @@ const DialogInformation = React.memo(
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
 
-    useEffect(() => {
-      dispatch(inFoUserBooking());
-    }, [open]);
+    // useEffect(() => {
+    //   dispatch(inFoUserBooking());
+    // }, [open]);
 
     useEffect(() => {
       setValue("name", infoUserBooking?.name);

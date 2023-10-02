@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { browsProduct } from "../../../features/browseProducts";
 import { useSnackbar } from "notistack";
 import useAuth from "../../../hooks/useAuth"
+import { LINK_URL } from "../../../app/config";
 
 const StyledTableCellBody = styled(TableCell)({
   textAlign: "center",
@@ -39,6 +40,7 @@ function ListBrowseProducts({ row, userId }) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
+  console.log(row)
   return (
     <TableRow key={row._id} sx={{ height: "100px" }}>
       <StyledTableCellBody>
@@ -51,7 +53,7 @@ function ListBrowseProducts({ row, userId }) {
           }}
         >
           <Button onClick={() => {}}>
-            <img src={row?.imageUrl} alt="" style={{ height: "80px" }} />
+            <img src={`${LINK_URL}${row?.imageUrl[0]}`} alt="" style={{ height: "80px" }} />
           </Button>
           <Typography
             sx={{

@@ -163,6 +163,7 @@ function MainHeader() {
       dispatch(getOrder(enqueueSnackbar));
     }else {dispatch(resfreshData());}
   }, []);
+  // load lại khi đặt hàng
 
   const handleBage = (e) => {
     let data = []
