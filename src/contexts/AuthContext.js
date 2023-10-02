@@ -1,8 +1,11 @@
 import { useSnackbar } from "notistack";
 import { createContext, useEffect, useReducer } from "react";
-import { useSelector } from "react-redux/es";
+import { useDispatch, useSelector } from "react-redux/es";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
+import { getListBrowsProduct } from "../features/browseProducts";
+import { getOrder } from "../features/oderCartSlice";
+import { getOther, resfreshData } from "../features/addCartSlice";
 
 const initialState = {
   isInitialized: false,
@@ -71,7 +74,7 @@ const AuthContext = createContext({ ...initialState });
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { updatedProfile } = useSelector((state) => state.user);
-
+  const dispatchRudex = useDispatch();
   useEffect(() => {
     if (updatedProfile) {
       dispatch({
@@ -122,6 +125,16 @@ function AuthProvider({ children }) {
 
     initialize();
   }, []);
+
+  useEffect(() => {
+    if (state.isAuthenticated && state?.role =='master') {
+      dispatchRudex(getListBrowsProduct(enqueueSnackbar));
+      dispatchRudex(getOrder(enqueueSnackbar));
+    } else if(state.isAuthenticated && state?.role =='normal'){
+      dispatchRudex(getOther(enqueueSnackbar));
+      dispatchRudex(getOrder(enqueueSnackbar));
+    }else {dispatchRudex(resfreshData());}
+  },[state.role])
 
   const login = async ({ email, password }, callBack) => {
     const reponse = await apiService.post("/auth/login", { email, password });

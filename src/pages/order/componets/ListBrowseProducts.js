@@ -40,7 +40,7 @@ function ListBrowseProducts({ row, userId }) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
-  console.log(row)
+  
   return (
     <TableRow key={row._id} sx={{ height: "100px" }}>
       <StyledTableCellBody>

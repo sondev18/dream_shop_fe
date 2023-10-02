@@ -33,11 +33,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
 import { LIST_OPTIONS_NAV } from "../options/option";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getOther, resfreshData } from "../features/addCartSlice";
+import { shallowEqual, useSelector } from "react-redux";
 import { LogoWhite } from "../componets/logo";
-import { getListBrowsProduct } from "../features/browseProducts";
-import { getOrder } from "../features/oderCartSlice";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -71,7 +68,6 @@ function MainHeader() {
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
   const isMenuOpen = Boolean(anchorElAvatar);
   const isMobileOpen = Boolean(anchorElMobile);
   const methods = useForm({
@@ -153,17 +149,6 @@ function MainHeader() {
       navigate("/checkout");
     }
   };
-
-  useEffect(() => {
-    if (auth.isAuthenticated && auth?.role =='master') {
-      dispatch(getListBrowsProduct(enqueueSnackbar));
-      dispatch(getOrder(enqueueSnackbar));
-    } else if(auth.isAuthenticated && auth?.role =='normal'){
-      dispatch(getOther(enqueueSnackbar));
-      dispatch(getOrder(enqueueSnackbar));
-    }else {dispatch(resfreshData());}
-  }, []);
-  // load lại khi đặt hàng
 
   const handleBage = (e) => {
     let data = []

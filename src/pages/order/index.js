@@ -77,7 +77,7 @@ function OrderPage() {
           <TableBody>
             {role !== "master" &&
               listOrder?.map((row) => <Listorder key={row._id} row={row} />)}
-            {role == "master" &&
+            {role === "master" &&
               listBrowseProducts?.map((row) => {
                 if (row?.ortherItems?.length) {
                   return row?.ortherItems?.map((item) => (

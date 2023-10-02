@@ -108,7 +108,7 @@ const ListOrtherComponent = React.memo(
         <StyledTableCell>
           {fCurrency(row?.description?.old_price)} $
         </StyledTableCell>
-        <StyledTableCell>{row?.discount}%</StyledTableCell>
+        <StyledTableCell>{row?.description.discount}%</StyledTableCell>
         <StyledTableCell>
           <Button
             onClick={() =>

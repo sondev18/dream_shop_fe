@@ -47,7 +47,11 @@ const Listorder = React.memo(({ row }) => {
             }}
           >
             <Button onClick={() => navigate(`/products/${row?.productId}`)}>
-              <img src={`${LINK_URL}${row?.imageUrl[0]}`} alt="" style={{ height: "80px" }} />
+              <img
+                src={`${LINK_URL}${row?.imageUrl[0]}`}
+                alt=""
+                style={{ height: "80px" }}
+              />
             </Button>
             <Typography
               sx={{
@@ -77,15 +81,17 @@ const Listorder = React.memo(({ row }) => {
           {/* <Button sx={{ minWidth: "30px" }}>
           <VisibilityIcon sx={{ color: "#001c44" }} />
         </Button> */}
-          <Button
-            sx={{ minWidth: "30px" }}
-            onClick={() => {
-              setOpenEvaluate(true);
-              setId(row?.productId);
-            }}
-          >
-            <EditNoteIcon sx={{ color: "#001c44", fontSize: "27px" }} />
-          </Button>
+          {row?.status === "done" && (
+            <Button
+              sx={{ minWidth: "30px" }}
+              onClick={() => {
+                setOpenEvaluate(true);
+                setId(row?.productId);
+              }}
+            >
+              <EditNoteIcon sx={{ color: "#001c44", fontSize: "27px" }} />
+            </Button>
+          )}
           {row?.status === "paid" && (
             <Button sx={{ minWidth: "30px" }} onClick={handleDeleteOrther(row)}>
               <DeleteIcon sx={{ color: "tomato" }} />
