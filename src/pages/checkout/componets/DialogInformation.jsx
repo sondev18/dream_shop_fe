@@ -88,7 +88,6 @@ const DialogInformation = React.memo(
       dispatch(
         ortherConfim({ data, dataOrthers: dataOrthersId }, enqueueSnackbar)
       );
-      dispatch(getOther(enqueueSnackbar));
       handleClose();
     };
 
