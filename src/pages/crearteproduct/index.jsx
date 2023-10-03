@@ -1,6 +1,15 @@
-import { Box, Button, Card, Container, Typography } from "@mui/material";
-import React, { useCallback } from "react";
-import { FTextField, FormProvider } from "../../componets/form";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import { FSelect, FTextField, FormProvider } from "../../componets/form";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +17,7 @@ import * as Yup from "yup";
 import FUploadAvatar from "../../componets/form/FUploadAvatar";
 import { fDate } from "../../utils/formatTime";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import { OPTION_BRAND, OPTION_CATEGORY } from "../../options/option";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -37,6 +47,8 @@ const defaultValue = {
 };
 
 function CreateProduct() {
+  const [category, setCategory] = useState("");
+  const [brands, setBrands] = useState([])
   const methods = useForm({
     defaultValue,
     resolver: yupResolver(schemaInfoUser),
@@ -47,6 +59,9 @@ function CreateProduct() {
     formState: { errors, isSubmitting },
   } = methods;
 
+  const handleChangeSelect = (e) => {
+    setCategory(e.target.value);
+  };
   const handleDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
@@ -62,7 +77,15 @@ function CreateProduct() {
     },
     [setValue]
   );
-
+  useEffect(()=>{
+  const filterBrand =  OPTION_BRAND.map((e) => {
+      const key = e.key.includes(category)
+      if(key){
+        return {...e}
+      }
+    }).filter((e) => e != undefined)
+  setBrands(filterBrand)
+  },[category])
   const onSubmit = async (data) => {};
 
   return (
@@ -93,14 +116,33 @@ function CreateProduct() {
                 variant="standard"
                 name="name"
                 label="Name product"
-                sx={{ width: "45%" }}
+                sx={{ width: "30%" }}
               />
-              <FTextField
+               <FSelect
+                name="category"
+                label="Category product"
                 variant="standard"
+                onChange= {handleChangeSelect}
+                sx={{ width: "30%" }}
+              >
+                {OPTION_CATEGORY.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </FSelect>
+              <FSelect
                 name="brand"
                 label="Brand product"
-                sx={{ width: "45%" }}
-              />
+                variant="standard"
+                sx={{ width: "30%" }}
+              >
+                {brands.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </FSelect>
             </StyledBox>
             <StyledBox sx={{ margin: "30px 0" }}>
               <FTextField

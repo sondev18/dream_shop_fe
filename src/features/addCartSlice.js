@@ -8,7 +8,6 @@ const initialState = {
   carts: null,
   listOrther: null,
   totalCart: null,
-  infoUserBooking: null,
 };
 
 const slice = createSlice({
@@ -48,12 +47,7 @@ const slice = createSlice({
       state.error = null;
       state.carts = null;
       state.totalCart = null;
-    },
-    infoUserSuccess(state, action) {
-      state.isLoading = null;
-      state.error = null;
-      state.infoUserBooking = action.payload[0];
-    },
+    }
   },
 });
 
@@ -125,6 +119,7 @@ export const resfreshData = () => async (dispatch) => {
     dispatch(slice.actions.hasError(error));
   }
 };
+
 export const ortherConfim =
   ({ dataOrthers }, enqueueSnackbar) =>
   async (dispatch) => {
@@ -143,12 +138,3 @@ export const ortherConfim =
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
-
-export const inFoUserBooking = () => async (dispatch) => {
-  try {
-    const res = await apiService.get("/users/userBooking");
-    dispatch(slice.actions.infoUserSuccess(res?.data));
-  } catch (error) {
-    console.log(error);
-  }
-};
