@@ -7,21 +7,18 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormProvider, FTextField } from "../../../componets/form";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  getOther,
-  inFoUserBooking,
-  ortherConfim,
-} from "../../../features/addCartSlice";
+import { ortherConfim } from "../../../features/addCartSlice";
 import { useSnackbar } from "notistack";
-import { getOrder } from "../../../features/oderCartSlice";
+import {
+  createUserBooking,
+  inFoUserBooking,
+} from "../../../features/userBooking";
+import { SdInput } from "../../../componets/SdInput/SdInput";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -29,55 +26,37 @@ const StyledBox = styled(Box)({
   justifyContent: "space-between",
 });
 
-const schemaInfoUser = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  email: Yup.string().email("Invalid Email").required("Email is required"),
-  phone: Yup.number().required("Phone is reqiured"),
-  address: Yup.string().required("Address is required"),
-  streetsName: Yup.string().required("StreetsName is required"),
-  district: Yup.string().required("District is required"),
-  city: Yup.string().required("City is required"),
-});
-
-const defaultValue = {
-  name: "",
-  phone: "",
-  email: "",
-  address: "",
-  streetsName: "",
-  district: "",
-  city: "",
-};
 
 const DialogInformation = React.memo(
   ({ open, handleClose, title, content }) => {
-    const { listOrther, infoUserBooking } = useSelector(
-      (state) => state?.addcart
-    );
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
+    const [streetsName, setStreetsName] = useState("");
+    const [district, setDistrict] = useState("");
+    const [city, setCity] = useState("");
+    const { listOrther } = useSelector((state) => state?.addcart);
+    const { infoUserBooking } = useSelector((state) => state?.userBooking);
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-
-    // useEffect(() => {
-    //   dispatch(inFoUserBooking());
-    // }, [open]);
+    useEffect(() => {
+      open === true || dispatch(inFoUserBooking());
+    }, [open]);
 
     useEffect(() => {
-      setValue("name", infoUserBooking?.name);
-      setValue("phone", infoUserBooking?.phone);
-      setValue("email", infoUserBooking?.email);
-      setValue("address", infoUserBooking?.address);
-      setValue("streetsName", infoUserBooking?.streetsName);
-      setValue("district", infoUserBooking?.district);
-      setValue("city", infoUserBooking?.city);
+      setName(infoUserBooking?.name);
+      setPhone(infoUserBooking?.phone);
+      setEmail(infoUserBooking?.email);
+      setAddress(infoUserBooking?.address);
+      setStreetsName(infoUserBooking?.streetsName);
+      setDistrict(infoUserBooking?.district);
+      setCity(infoUserBooking?.city);
     }, [infoUserBooking]);
 
-    const methods = useForm({
-      defaultValue,
-      resolver: yupResolver(schemaInfoUser),
-    });
-    const { handleSubmit, setValue } = methods;
+    const form = useForm({ mode: "onBlur", reValidateMode: "onBlur" });
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (e) => {
       let dataOrthersId = [];
       for (let i = 0; i < listOrther?.length; i++) {
         const element = listOrther[i];
@@ -85,11 +64,24 @@ const DialogInformation = React.memo(
           dataOrthersId.push({ _id: element?._id });
         }
       }
-      dispatch(
-        ortherConfim({ data, dataOrthers: dataOrthersId }, enqueueSnackbar)
-      );
-      dispatch(getOther(enqueueSnackbar));
-      handleClose();
+      if (
+        name &&
+        phone &&
+        email &&
+        address &&
+        streetsName &&
+        district &&
+        city
+      ) {
+        dispatch(
+          createUserBooking(
+            { name, phone, email, address, streetsName, district, city },
+            enqueueSnackbar
+          )
+        );
+        dispatch(ortherConfim({ dataOrthers: dataOrthersId }, enqueueSnackbar));
+        handleClose();
+      }
     };
 
     return (
@@ -103,7 +95,7 @@ const DialogInformation = React.memo(
           textAlign: "center",
         }}
       >
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <DialogTitle>
             <Box
               sx={{
@@ -127,50 +119,93 @@ const DialogInformation = React.memo(
           </DialogTitle>
           <DialogContent>
             <StyledBox>
-              <FTextField
+              <SdInput
+                value={name}
+                required
+                sdChange={(text) => {
+                  setName(text);
+                }}
+                form={form}
                 variant="standard"
-                name="name"
+                id="name"
                 label="First and last name"
                 sx={{ width: "45%" }}
               />
-              <FTextField
+              <SdInput
+                value={phone}
+                required
+                sdChange={(text) => {
+                  setPhone(text);
+                }}
+                form={form}
                 variant="standard"
-                name="phone"
+                id="phone"
                 label="Contact phone number"
                 sx={{ width: "45%" }}
               />
             </StyledBox>
             <StyledBox sx={{ margin: "30px 0" }}>
-              <FTextField
+              <SdInput
+                value={email}
+                required
+                sdChange={(text) => {
+                  setEmail(text);
+                }}
+                form={form}
                 variant="standard"
-                name="email"
+                id="email"
                 label="Email address"
-                sx={{ width: "35%" }}
+                sx={{ width: "30%" }}
               />
-              <FTextField
+
+              <SdInput
+                value={address}
+                required
+                sdChange={(text) => {
+                  setAddress(text);
+                }}
+                form={form}
                 variant="standard"
-                name="address"
+                id="address"
                 label="Address"
-                sx={{ width: "28%" }}
+                sx={{ width: "30%" }}
               />
-              <FTextField
+              <SdInput
+                value={streetsName}
+                required
+                sdChange={(text) => {
+                  setStreetsName(text);
+                }}
+                form={form}
                 variant="standard"
-                name="streetsName"
+                id="streetsName"
                 label="Street names"
-                sx={{ width: "28%" }}
+                sx={{ width: "30%" }}
               />
             </StyledBox>
 
             <StyledBox sx={{ marginBottom: "20px" }}>
-              <FTextField
+              <SdInput
+                value={district}
+                required
+                sdChange={(text) => {
+                  setDistrict(text);
+                }}
+                form={form}
                 variant="standard"
-                name="district"
+                id="district"
                 label="District"
                 sx={{ width: "45%" }}
               />
-              <FTextField
+              <SdInput
+                value={city}
+                required
+                sdChange={(text) => {
+                  setCity(text);
+                }}
+                form={form}
                 variant="standard"
-                name="city"
+                id="city"
                 label="City"
                 sx={{ width: "45%" }}
               />
@@ -191,7 +226,7 @@ const DialogInformation = React.memo(
             </Button>
             <Button
               type="submit"
-              // onClick={handleSubmit(onSubmit)}
+              onClick={onSubmit}
               autoFocus
               sx={{
                 color: "white",
@@ -202,7 +237,7 @@ const DialogInformation = React.memo(
               Yes
             </Button>
           </DialogActions>
-        </FormProvider>
+        </form>
       </Dialog>
     );
   }

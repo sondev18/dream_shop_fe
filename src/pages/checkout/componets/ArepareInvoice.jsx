@@ -32,6 +32,7 @@ const ArepareInvoice = () => {
   const [totalQuanlity, setTotalQuanlity] = useState("");
   const [totalPriceSale, setTotalPriceSale] = useState("");
   const [totalProduct, setTotalProduct] = useState([]);
+  const [total, setTotal] = useState("");
   const [open, setOpen] = useState(false);
   const { listOrther } = useSelector((state) => state?.addcart);
   const { enqueueSnackbar } = useSnackbar();
@@ -41,11 +42,13 @@ const ArepareInvoice = () => {
     let startQuanlity = 0;
     let startPriceSale = 0;
     let totalProducts = [];
+    let total = 0;
     for (let i = 0; i < listOrther?.length; i++) {
       const element = listOrther[i];
       if (element.check === true) {
         totalProducts.push(element);
-        startPrice = startPrice + +element?.description?.latest_price;
+        total = +element?.price * +element.quantity;
+        startPrice = startPrice + +element?.price;
         startPriceSale =
           startPriceSale +
           (+element?.description?.old_price -
@@ -54,6 +57,7 @@ const ArepareInvoice = () => {
         startQuanlity = startQuanlity + +element?.quantity;
       }
     }
+    setTotal(total);
     setTotalPrice(startPrice);
     setTotalPriceSale(startPriceSale);
     setTotalQuanlity(startQuanlity);
@@ -93,6 +97,11 @@ const ArepareInvoice = () => {
             <Typography>Total Price:</Typography>
             {fCurrency(totalPrice)} $
           </StyledBox>
+          <Typography
+            sx={{ fontSize: "16px", fontWeight: 550, color: "tomato" }}
+          >
+            Total: {fCurrency(total)} $
+          </Typography>
         </CardContent>
         <Divider sx={{ width: "80%", margin: "0 auto" }} />
         <CardActions>

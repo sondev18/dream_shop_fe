@@ -8,7 +8,6 @@ import { useSnackbar } from "notistack";
 
 function Logo({ disabledLink = false, sx, onClick }) {
   const location = useLocation();
-  console.log(location);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const handleResetApp = async () => {

@@ -88,11 +88,33 @@ export const LIST_OPTIONS_NAV = [
   {
     value: "CustomerCare",
     role: ["normal"],
-    navigateValue: "/customrcare"
+    navigateValue: "/customrcare",
   },
   {
     value: "CreateProduct",
     role: ["master"],
     navigateValue: "/createproduct",
   },
+];
+export const OPTION_BRAND = [
+  { value: "apple", label: "apple", key: ["laptop", "phone"] },
+  { value: "lenovo", label: "lenovo", key: ["laptop"] },
+  { value: "msi", label: "msi", key: ["laptop"] },
+  { value: "asus", label: "asus", key: ["laptop"] },
+  { value: "dell", label: "dell", key: ["laptop"] },
+  { value: "acer", label: "acer", key: ["laptop"] },
+  { value: "hp", label: "hp", key: ["laptop"] },
+  { value: "fujifilm", label: "fujifilm", key: ["camera"] },
+  { value: "nikon", label: "nikon", key: ["camera"] },
+  { value: "sony", label: "sony", key: ["camera"] },
+  { value: "canon", label: "canon", key: ["camera"] },
+  { value: "samsung", label: "samsung", key: ["laptop"] },
+  { value: "huawei", label: "huawei", key: ["phone"] },
+  { value: "xiaomi", label: "xiaomi", key: ["phone"] },
+];
+
+export const OPTION_CATEGORY = [
+  { value: "camera", label: "camera" },
+  { value: "laptop", label: "laptop" },
+  { value: "phone", label: "phone" },
 ];
