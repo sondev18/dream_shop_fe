@@ -26,7 +26,7 @@ import { LINK_URL } from "../../../app/config";
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const auth = useAuth();
-  const isDisabled = auth?.role === "master";
+  const isDisabled = ["master", "driver"].includes(auth?.role);
   // const {} = useSelector((state) => state.addcart)
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();

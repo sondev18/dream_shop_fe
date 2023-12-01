@@ -5,6 +5,7 @@ import addcartReducer from "../features/addCartSlice";
 import ordercartReducer from "../features/oderCartSlice";
 import browseproductReducer from "../features/browseProducts";
 import userBookingRudecer from "../features/userBooking";
+import reviewReducer from '../features/reviewSlice'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   ordercart: ordercartReducer,
   browseproduct: browseproductReducer,
   userBooking: userBookingRudecer,
+  review: reviewReducer
 });
 
 const store = configureStore({

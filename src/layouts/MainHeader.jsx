@@ -63,6 +63,7 @@ function MainHeader() {
   const { listOrther } = useSelector((state) => state.addcart, shallowEqual);
   const { listBrowseProducts } = useSelector((state) => state?.browseproduct);
   const { listOrder } = useSelector((state) => state?.ordercart);
+  const { reviewList } = useSelector((state) => state?.review);
 
   const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
@@ -149,7 +150,7 @@ function MainHeader() {
       navigate("/checkout");
     }
   };
-
+  
   const handleBage = (e) => {
     let data = []
      listBrowseProducts?.forEach((item) => {
@@ -161,11 +162,17 @@ function MainHeader() {
     if (e?.value == "Checkout") {
       return listOrther?.length;
     }
-    if (e?.value == "Order" && auth?.role == "master") {
+    if (e?.value == "Order" && (auth?.role == "master" )) {
       return data?.length;
+    }
+    if(e?.value == "Order" && auth?.role == "driver"){
+     return data.filter((e) => e.status === "delivery").length
     }
     if (e?.value == "Order" && auth?.role !== "master") {
       return listOrder?.length;
+    }
+    if(e?.value == "Reviews"){
+      return reviewList?.filter((e) => !e.ratings).length
     }
     return null;
   };

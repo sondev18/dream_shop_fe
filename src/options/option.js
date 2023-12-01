@@ -76,8 +76,19 @@ export const LIST_OPTIONS_NAV = [
   },
   {
     value: "Order",
-    role: ["normal", "master"],
+    role: ["normal", "master","driver"],
     navigateValue: "/order",
+    line: (
+      <Divider
+        orientation="vertical"
+        style={{ height: "30px", margin: "0 10px" }}
+      />
+    ),
+  },
+  {
+    value: "Reviews",
+    role: ["normal"],
+    navigateValue: "/review",
     line: (
       <Divider
         orientation="vertical"

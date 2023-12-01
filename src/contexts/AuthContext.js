@@ -6,6 +6,7 @@ import { isValidToken } from "../utils/jwt";
 import { getListBrowsProduct } from "../features/browseProducts";
 import { getOrder } from "../features/oderCartSlice";
 import { getOther, resfreshData } from "../features/addCartSlice";
+import { getListReview } from "../features/reviewSlice";
 
 const initialState = {
   isInitialized: false,
@@ -133,7 +134,11 @@ function AuthProvider({ children }) {
     } else if(state.isAuthenticated && state?.role =='normal'){
       dispatchRudex(getOther(enqueueSnackbar));
       dispatchRudex(getOrder(enqueueSnackbar));
-    }else {dispatchRudex(resfreshData());}
+      dispatchRudex(getListReview(enqueueSnackbar));
+    } else if(state.isAuthenticated && state?.role =='driver'){
+      dispatchRudex(getListBrowsProduct(enqueueSnackbar));
+    }
+    else {dispatchRudex(resfreshData());}
   },[state.role])
 
   const login = async ({ email, password }, callBack) => {

@@ -12,6 +12,7 @@ import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
 import AccountPages from "../pages/account";
 import CheckoutPage from "../pages/checkout";
+import ReviewPage from "../pages/reviews";
 
 function Router() {
   return (
@@ -30,6 +31,7 @@ function Router() {
         <Route path="customrcare" element={<CustomerCarePage />} />
         <Route path="account" element={<AccountPages />} />
         <Route path="createproduct" element={<CreateProduct />} />
+        <Route path="review" element={<ReviewPage/>}/>
         <Route path="products/:id" element={<DetailPages />} />
       </Route>
 

@@ -35,7 +35,7 @@ function OrderPage() {
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     dispatch(getOrder(enqueueSnackbar));
-    if (role == "master") {
+    if ( ["master", "driver"].includes(role)) {
       dispatch(getListBrowsProduct(enqueueSnackbar));
     }
   }, []);
@@ -81,8 +81,26 @@ function OrderPage() {
               listBrowseProducts?.map((row) => {
                 if (row?.ortherItems?.length) {
                   return row?.ortherItems?.map((item) => (
-                    <ListBrowseProducts key={item?._id} row={item} userId={row?.userId}/>
+                    <ListBrowseProducts
+                      key={item?._id}
+                      row={item}
+                      userId={row?.userId}
+                    />
                   ));
+                }
+              })}
+            {role === "driver" &&
+              listBrowseProducts?.map((row) => {
+                if (row?.ortherItems?.length) {
+                  return row?.ortherItems
+                    ?.filter((e) => e?.status === "delivery")
+                    .map((item) => (
+                      <ListBrowseProducts
+                        key={item?._id}
+                        row={item}
+                        userId={row?.userId}
+                      />
+                    ));
                 }
               })}
           </TableBody>

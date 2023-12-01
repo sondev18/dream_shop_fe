@@ -14,27 +14,26 @@ import { Controller, useForm } from "react-hook-form";
 import { FTextField, FormProvider } from "../../../componets/form";
 import apiService from "../../../app/apiService";
 import { useSnackbar } from "notistack";
+import { updateReview } from "../../../features/reviewSlice";
 
 const defaultValue = {
   content:'',
   rating:0
 }
 
-const EvaluateComfirm = ({ open, handleClose, title, id, content }) => {
+const EvaluateComfirm = ({ open, handleClose, title, id, content, dispatch }) => {
   const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({...defaultValue});
   const {
     handleSubmit,
     control,
-    getValues,
     setValue,
     reset,
-    formState: { errors, isSubmitting },
   } = methods;
 
   const onSubmit = async (data) => {
     try {
-      await apiService.post(`/reviews/${id}`, data);
+      dispatch(updateReview({id, data}, enqueueSnackbar))
       handleClose();
       enqueueSnackbar("successful product review", { variant: "success" });
     } catch (error) {

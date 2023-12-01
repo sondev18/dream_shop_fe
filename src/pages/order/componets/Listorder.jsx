@@ -81,7 +81,7 @@ const Listorder = React.memo(({ row }) => {
           {/* <Button sx={{ minWidth: "30px" }}>
           <VisibilityIcon sx={{ color: "#001c44" }} />
         </Button> */}
-          {row?.status === "done" && (
+          {row?.status === "done" && !row?.ratings && (
             <Button
               sx={{ minWidth: "30px" }}
               onClick={() => {
@@ -103,6 +103,7 @@ const Listorder = React.memo(({ row }) => {
         open={openEvaluate}
         title={"Product reviews"}
         id={id}
+        dispatch={dispatch}
         handleClose={() => {
           setOpenEvaluate(false);
         }}
