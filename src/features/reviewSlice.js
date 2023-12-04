@@ -45,7 +45,7 @@ export const updateReview =
   ({ id, data }, enqueueSnackbar) =>
   async (dispatch) => {
     try {
-      const res = await apiService.post(`/reviews/${id}`, {...data, id:id});
+      const res = await apiService.post(`/reviews/${id}`, {...data});
       if(res.success){
         dispatch(getListReview())
       }
